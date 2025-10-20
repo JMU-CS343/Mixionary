@@ -4,6 +4,7 @@ body{
     background-color: var(--slate-gray);
     margin: 0;
     overflow: hidden;
+    
 }
 
 .header {
@@ -30,6 +31,10 @@ body{
     width: 60vw;
     border: solid var(--light-gray) 1px;
     height: 15%;
+    font-family: fantasy;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 #results {
@@ -37,11 +42,17 @@ body{
     border: solid var(--light-gray) 1px;
     height: 75%;
 }
+header > button {
+    font-family: fantasy;
+    font-size: 1.5rem;
+}
 
 #title {
     display: flex;
     justify-content:space-between;
     align-items: center;
     padding-left: 20px;
+    font-family: fantasy;
+    font-size: 2rem;
 }
 

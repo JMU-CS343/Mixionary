@@ -7,6 +7,7 @@
     <title>Mix-ionary</title>
     <link rel="stylesheet" href="/css/index.css">
     <link rel="icon" type="image/x-icon" href="/assets/martini.ico">
+
 </head>
 
 
@@ -17,21 +18,18 @@
         <button id="saved">Saved</button>
         <button id="search">Search</button>
     </header>
+    
     <main class="container">
-
         <section id="searchBar">
-            
+            <input type="text" id="searchInput" placeholder="Search for a cocktail..." />
+            <button id="searchButton">
+                <img src="/assets/search.png" alt="Search" style="width: 64px;">
+            </button>
         </section>
 
-        <section id="results">
-            
-        </section>
+        <section id="results"></section>
 
     </main>
-
-
-
-    <script src="index.js"></script>
+    <script src="/js/app.js"></script>
 </body>
-
 </html>
