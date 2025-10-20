@@ -1,3 +1,47 @@
+@import "root.css";
+
 body{
-    background-color: black;
+    background-color: var(--slate-gray);
+    margin: 0;
+    overflow: hidden;
 }
+
+.header {
+    display: grid;
+    grid-template-columns: 50% 20% 15% 15%;
+}
+
+.header > button {
+    height: 64px;
+    background-color: #333;
+    color: var(--light-gray);
+}
+
+.container {
+    width: 100vw;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    height: calc(100vh - 64px);
+}
+
+#searchBar {
+    width: 60vw;
+    border: solid var(--light-gray) 1px;
+    height: 15%;
+}
+
+#results {
+    width: 60vw;
+    border: solid var(--light-gray) 1px;
+    height: 75%;
+}
+
+#title {
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    padding-left: 20px;
+}
+
