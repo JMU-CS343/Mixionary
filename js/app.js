@@ -29,10 +29,28 @@ function displayCocktails(drinks) {
   }
 
   drinks.forEach(drink => {
-    const card = document.createElement('div');
-    card.innerHTML = `
-      <h3>${drink.strDrink}</h3>
-    `;
-    resultsDiv.appendChild(card);
+  const card = document.createElement('button');
+  card.className = 'card';
+
+  let ingredients = [];
+  let count = 1;
+
+  while (true) {
+    const ingredient = drink[`strIngredient${count}`];
+    const measure = drink[`strMeasure${count}`];
+    if (!ingredient) break;
+    ingredients.push(`${measure ? measure.trim() : ''} ${ingredient}`.trim());
+    count++;
+  }
+
+  card.innerHTML = `
+    <h3 style="margin-left:10px">${drink.strDrink}</h3>
+    <p style="margin-left:20px"><strong>Ingredients:</strong>
+    ${ingredients.join(', ')}</p>
+    <img src="assets/bookmark.png"
+      style="width:30px; position:absolute; top:10px; right:10px;">
+  `;
+
+  resultsDiv.appendChild(card);
   });
 }
