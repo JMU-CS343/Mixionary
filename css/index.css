@@ -29,7 +29,7 @@ body{
 
 #searchBar {
     width: 60vw;
-    border: solid var(--light-gray) 1px;
+    border: 2px outset buttonborder;
     height: 15%;
     font-family: fantasy;
     display: flex;
@@ -39,7 +39,8 @@ body{
 
 #results {
     width: 60vw;
-    border: solid var(--light-gray) 1px;
+    border: 2px outset buttonborder;
+    /* border: solid var(--light-gray) 1px; */
     height: 75%;
     display: flex;
     flex-direction: column;
