@@ -31,6 +31,8 @@ function displayCocktails(drinks) {
   drinks.forEach(drink => {
   const card = document.createElement('button');
   card.className = 'card';
+  card.setAttribute('data-bs-toggle', 'modal');
+  card.setAttribute('data-bs-target', '#drinkModal');
 
   let ingredients = [];
   let count = 1;
@@ -51,6 +53,12 @@ function displayCocktails(drinks) {
       style="width:30px; position:absolute; top:10px; right:10px;">
   `;
 
+  card.addEventListener('click', () => {
+      document.getElementById('drinkModalLabel').textContent = drink.strDrink;
+      document.getElementById('drinkImage').src = drink.strDrinkThumb;
+      document.getElementById('drinkInstructions').textContent = drink.strInstructions;
+    });
+  
   resultsDiv.appendChild(card);
   });
 }

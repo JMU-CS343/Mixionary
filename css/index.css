@@ -98,3 +98,80 @@ header > button {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--medium-purple); 
 }
+
+
+/*Only the required bs for the modal slightly edited to match required formatting*/
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1050;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  outline: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal.show {
+  display: block;
+}
+
+.modal-dialog {
+  position: relative;
+  margin: 1.75rem auto;
+  max-width: 500px;
+  pointer-events: none;
+}
+
+.modal-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  pointer-events: auto;
+  background-color: var(--slate-gray);
+  background-clip: padding-box;
+  border: 1px solid rgba(0,0,0,.2);
+  border-radius: 0.5rem;
+  box-shadow: 0 0.5rem 1rem rgba(0,0,0,.15);
+  outline: 0;
+  color: var(--light-gray);
+}
+
+.modal-header, .modal-body, .modal-footer {
+  padding: 0 1rem;
+}
+
+.modal-header {
+  border-bottom: 1px solid #dee2e6;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-footer {
+  border-top: 1px solid #dee2e6;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.btn-close {
+  background-color: var(--light-gray);
+  -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M.293 1.293a1 1 0 011.414 0L8 7.586l6.293-6.293a1 1 0 111.414 1.414L9.414 9l6.293 6.293a1 1 0 01-1.414 1.414L8 10.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 9 .293 2.707a1 1 0 010-1.414z' /></svg>");
+  mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M.293 1.293a1 1 0 011.414 0L8 7.586l6.293-6.293a1 1 0 111.414 1.414L9.414 9l6.293 6.293a1 1 0 01-1.414 1.414L8 10.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 9 .293 2.707a1 1 0 010-1.414z' /></svg>");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 1em 1em;
+  width: 1em;
+  height: 1em;
+  border: none;
+  cursor: pointer;
+}
+
+.modal-title {
+    font-family: fantasy;
+    font-size: 2rem;
+}
