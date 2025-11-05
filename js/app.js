@@ -2,6 +2,14 @@ const searchInput = document.getElementById('searchInput');
 const searchBtn = document.getElementById('searchButton');
 const resultsDiv = document.getElementById('results');
 
+// Handle search functionality
+function handleSearch() {
+    const query = searchInput.value.trim();
+    if (query !== '') {
+        fetchCocktails(query);
+    }
+}
+
 const BASE_URL = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=`;
 
 let local = JSON.parse(localStorage.getItem("saved"));
@@ -11,11 +19,13 @@ if (!Array.isArray(local)) {
   localStorage.setItem("saved", JSON.stringify(local));
 }
 
-searchBtn.addEventListener('click', () => {
-  const query = searchInput.value.trim();
-  if (query !== '') {
-    fetchCocktails(query);
-  }
+// Add both click and keyboard (Enter) event handlers for search
+searchBtn.addEventListener('click', handleSearch);
+searchInput.addEventListener('keypress', (event) => {
+    if (event.key === 'Enter') {
+        event.preventDefault(); // Prevent form submission if within a form
+        handleSearch();
+    }
 });
 
 async function fetchCocktails(query) {
