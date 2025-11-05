@@ -5,7 +5,9 @@ const resultsDiv = document.getElementById('results');
 const BASE_URL = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=`;
 
 let local = JSON.parse(localStorage.getItem("saved"));
-if (local == null) {
+// Ensure `local` is an array so later `includes` checks won't throw.
+if (!Array.isArray(local)) {
+  local = [];
   localStorage.setItem("saved", JSON.stringify(local));
 }
 
@@ -77,14 +79,27 @@ function displayCocktails(drinks) {
       modal.show();
     });
 
+  // Immediate visual feedback for pointer/touch interactions
+  img.addEventListener('pointerdown', (ev) => {
+    ev.stopPropagation();
+    img.classList.add('pressed');
+  });
+  const clearPressed = (ev) => { ev.stopPropagation(); img.classList.remove('pressed'); };
+  img.addEventListener('pointerup', clearPressed);
+  img.addEventListener('pointercancel', clearPressed);
+  img.addEventListener('pointerleave', clearPressed);
+
   img.addEventListener('click', (ev) => {
     ev.stopPropagation();
-    if (handleLocal(drink.strDrink) == 0) {
+    const result = handleLocal(drink.strDrink);
+    if (result == 0) {
       img.src = "assets/bookmarkGray.png";
     } else {
       img.src = "assets/bookmarkPurple.png";
     }
-  })
+    // keep the local variable in sync with localStorage
+    local = JSON.parse(localStorage.getItem("saved")) || [];
+  });
   
   resultsDiv.appendChild(card);
   });
@@ -112,3 +127,5 @@ function handleLocal(drink) {
     return 1;
   }
 }
+
+//
