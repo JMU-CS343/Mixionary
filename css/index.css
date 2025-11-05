@@ -57,10 +57,6 @@ body{
     position: relative;
 }
 
-.card > img {
-    filter: invert(100%) brightness(80%);
-}
-
 header > button {
     font-family: fantasy;
     font-size: 1.5rem;
