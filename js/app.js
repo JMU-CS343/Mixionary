@@ -74,7 +74,7 @@ function displayCocktails(drinks) {
       document.getElementById('drinkModalLabel').textContent = drink.strDrink;
       document.getElementById('drinkImage').src = drink.strDrinkThumb;
       document.getElementById('drinkInstructions').textContent = drink.strInstructions;
-        modal.show();
+      modal.show();
     });
 
   img.addEventListener('click', (ev) => {
