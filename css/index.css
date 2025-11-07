@@ -4,7 +4,7 @@ body{
     background-color: var(--slate-gray);
     margin: 0;
     overflow: hidden;
-    
+
 }
 
 .header {
@@ -97,7 +97,32 @@ header > button {
     margin-right: 10px;
 }
 
+@media screen and (max-width: 760px) {
+  .header {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
 
+  #title {
+    grid-row: 1;
+    grid-column-start: 1;
+    grid-column-end: 4;
+  }
+
+  #ingredients {
+    grid-row: 2;
+  }
+
+  #saved {
+    grid-row: 2;
+  }
+
+  #search {
+    grid-row: 2;
+  }
+
+}
 
 /* for custom sidebar */
 ::-webkit-scrollbar {
@@ -105,17 +130,16 @@ header > button {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--slate-gray); 
+  background: var(--slate-gray);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--light-gray); 
+  background: var(--light-gray);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--medium-purple); 
+  background: var(--medium-purple);
 }
-
 
 /*Only the required bs for the modal slightly edited to match required formatting*/
 .modal {
