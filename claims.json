@@ -15,7 +15,15 @@
     },
 
     "int" : {
-
+        "13" : false,
+        "14" : false,
+        "15" : false,
+        "18" : false,
+        "19" : false,
+        "21" : false,
+        "22" : false,
+        "23" : false,
+        "29" : false
     },
 
     "adv" : {
