@@ -10,7 +10,7 @@ function handleSearch() {
     }
 }
 
-const BASE_URL = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=`;
+const BASE_URL = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=`;
 
 let local = JSON.parse(localStorage.getItem("saved"));
 // Ensure `local` is an array so later `includes` checks won't throw.
