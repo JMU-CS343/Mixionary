@@ -1,6 +1,13 @@
 const searchInput = document.getElementById('searchInput');
 const searchBtn = document.getElementById('searchButton');
 const resultsDiv = document.getElementById('results');
+const settingsBtn = document.getElementById("settings")
+
+
+settingsBtn.addEventListener('click', () => {
+    const modal = new bootstrap.Modal(document.getElementById('settingModal'));
+    modal.show();
+  });
 
 // Handle search functionality
 function handleSearch() {

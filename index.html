@@ -29,8 +29,11 @@
         <section id="results"></section>
     </main>
 
+    <button id="settings">
+        <img src="assets/gear.png" alt="Settings" style="width: 48px;position: absolute;right: 0;bottom: 0;padding: 15px;">
+    </button>
 
-    <!-- Bootstrap modal -->
+    <!-- Bootstrap drink modal -->
     <div class="modal fade" id="drinkModal" tabindex="-1" aria-labelledby="drinkModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -41,6 +44,21 @@
                 <div class="modal-body text-center">
                     <img id="drinkImage" src="" alt="" class="img-fluid rounded mb-3" style="max-height: 250px;">
                     <p id="drinkInstructions"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings BS modal -->
+    <div class="modal fade" id="settingModal" tabindex="-1" aria-labelledby="settingModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <p class="modal-title" id="settingModalLabel"></p>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <!-- enter data here -->
                 </div>
             </div>
         </div>
