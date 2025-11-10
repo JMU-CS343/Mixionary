@@ -103,10 +103,29 @@ header > button {
     font-size: 2rem;
 }
 
+#title:focus , #title:active {
+  outline: none;
+  border: 2px outset buttonborder;
+}
+
 #searchButton {
     background-color: var(--slate-gray);
     border: none;
     margin-right: 10px;
+}
+
+#settings {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  border: 2px outset buttonborder;
+  padding: 5px 5px 2px 5px;
+  background-color: transparent;
+  margin: 15px;
+}
+
+#settings > img{
+  padding:5px;
 }
 
 @media screen and (max-width: 760px) {
@@ -186,8 +205,7 @@ header > button {
   pointer-events: auto;
   background-color: var(--slate-gray);
   background-clip: padding-box;
-  border: 1px solid rgba(0,0,0,.2);
-  border-radius: 0.5rem;
+  border: 4px outset buttonborder;
   box-shadow: 0 0.5rem 1rem rgba(0,0,0,.15);
   outline: 0;
   color: var(--light-gray);
