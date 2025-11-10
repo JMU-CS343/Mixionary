@@ -41,6 +41,18 @@ body{
     justify-content: space-between;
 }
 
+#searchInput{
+  background-color: transparent;
+  margin-left: 25px;
+  height: 40px;
+  color: var(--light-gray);
+}
+
+#searchInput:focus {
+  outline: none;
+  box-shadow: none;
+}
+
 #results {
     width: 60vw;
     border: 2px outset buttonborder;
