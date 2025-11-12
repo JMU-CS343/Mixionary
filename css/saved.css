@@ -1,10 +1,11 @@
 @import "root.css";
 
 body{
-    background-color: var(--slate-gray);
-    margin: 0;
-    overflow: hidden;
-    
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  margin: 0;
+  overflow: hidden;
+  transition: background-color 300ms ease, color 300ms ease;
 }
 
 .header {
@@ -13,9 +14,10 @@ body{
 }
 
 .header > button {
-    height: 64px;
-    background-color: #333;
-    color: var(--light-gray);
+  height: 64px;
+  background-color: var(--button-bg);
+  color: var(--text-primary);
+  transition: background-color 300ms ease, color 300ms ease;
 }
 
 .container {
@@ -32,13 +34,15 @@ body{
 }
 
 #searchBar {
-    width: 60vw;
-    border: 2px outset buttonborder;
-    height: 15%;
-    font-family: fantasy;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  width: 60vw;
+  border: 2px outset buttonborder;
+  height: 15%;
+  font-family: fantasy;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--bg-secondary);
+  transition: background-color 300ms ease;
 }
 
 #results {
@@ -52,13 +56,14 @@ body{
 }
 
 .card {
-    width: calc(100% - 2px);
-    background-color: var(--slate-gray);
-    color: var(--light-gray);
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    position: relative;
+  width: calc(100% - 2px);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+  transition: background-color 300ms ease, color 300ms ease;
 }
 
 header > button {
@@ -76,9 +81,10 @@ header > button {
 }
 
 #searchButton {
-    background-color: var(--slate-gray);
-    border: none;
-    margin-right: 10px;
+  background-color: var(--bg-secondary);
+  border: none;
+  margin-right: 10px;
+  transition: background-color 300ms ease;
 }
 
 
@@ -89,15 +95,17 @@ header > button {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--slate-gray); 
+  background: var(--bg-secondary);
+  transition: background-color 300ms ease;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--light-gray); 
+  background: var(--text-secondary);
+  transition: background-color 300ms ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--medium-purple); 
+  background: var(--medium-purple);
 }
 
 
@@ -132,13 +140,14 @@ header > button {
   flex-direction: column;
   width: 100%;
   pointer-events: auto;
-  background-color: var(--slate-gray);
+  background-color: var(--bg-primary);
   background-clip: padding-box;
   border: 1px solid rgba(0,0,0,.2);
   border-radius: 0.5rem;
   box-shadow: 0 0.5rem 1rem rgba(0,0,0,.15);
   outline: 0;
-  color: var(--light-gray);
+  color: var(--text-primary);
+  transition: background-color 300ms ease, color 300ms ease;
 }
 
 .modal-header, .modal-body, .modal-footer {
