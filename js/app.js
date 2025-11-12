@@ -3,11 +3,90 @@ const searchBtn = document.getElementById('searchButton');
 const resultsDiv = document.getElementById('results');
 const settingsBtn = document.getElementById("settings")
 
+// Listen for changes on theme select using event delegation
+document.addEventListener('change', function(e) {
+    if (e.target.id === 'themeSelect') {
+        const newTheme = e.target.value;
+        localStorage.setItem('theme', newTheme);
+        applyTheme(newTheme);
+    }
+    if (e.target.id === 'cardViewSelect') {
+        const newView = e.target.value;
+        localStorage.setItem('cardView', newView);
+        applyCardView(newView);
+    }
+});
+
+// Load settings from localStorage on page load
+function loadSettings() {
+    const themeSelect = document.getElementById('themeSelect');
+    const cardViewSelect = document.getElementById('cardViewSelect');
+    
+  // loadSettings reads saved values and applies them
+    
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    const savedCardView = localStorage.getItem('cardView') || 'grid';
+    
+  // apply saved settings (or defaults)
+    
+    if (themeSelect) {
+        themeSelect.value = savedTheme;
+    }
+    if (cardViewSelect) {
+        cardViewSelect.value = savedCardView;
+    }
+    
+    applyTheme(savedTheme);
+    applyCardView(savedCardView);
+}
+
+// Apply theme changes
+function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+}
+
+// Apply card view changes
+function applyCardView(view) {
+    resultsDiv.setAttribute('data-card-view', view);
+}
+
+// Restore defaults button
+const restoreDefaultsBtn = document.getElementById('restoreDefaultsBtn');
+if (restoreDefaultsBtn) {
+  restoreDefaultsBtn.addEventListener('click', () => {
+    // Restore defaults: set theme to dark and card view to grid
+    localStorage.setItem('theme', 'dark');
+    applyTheme('dark');
+
+    localStorage.setItem('cardView', 'grid');
+    applyCardView('grid');
+
+    // Update selects in the modal if present
+    const themeSelect = document.getElementById('themeSelect');
+    if (themeSelect) themeSelect.value = 'dark';
+    const cardViewSelect = document.getElementById('cardViewSelect');
+    if (cardViewSelect) cardViewSelect.value = 'grid';
+
+    // Close the modal
+    const modalEl = document.getElementById('settingModal');
+    if (modalEl) {
+      const modalInstance = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
+      modalInstance.hide();
+    }
+  });
+}
+
+// Load settings when page loads
+window.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM loaded');
+    loadSettings();
+});
 
 settingsBtn.addEventListener('click', () => {
+    console.log('Settings clicked');
     const modal = new bootstrap.Modal(document.getElementById('settingModal'));
     modal.show();
-  });
+});
 
 // Handle search functionality
 function handleSearch() {
