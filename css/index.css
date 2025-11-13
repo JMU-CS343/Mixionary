@@ -68,6 +68,8 @@ body{
     overflow-y: scroll;
     background-color: var(--bg-secondary);
     transition: background-color 300ms ease;
+    margin-bottom: 0px;
+    box-sizing: border-box;
 }
 
 .card {
@@ -293,4 +295,21 @@ header > button {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+}
+
+.load-more {
+  width: 60vw;
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  border: 2px outset buttonborder;
+  border-top: none;
+  padding: 10px;
+  cursor: pointer;
+  margin-top: -2px;
+  transition: background-color 300ms ease, color 300ms ease;
+  box-sizing: border-box;
+}
+
+.load-more:hover {
+  background-color: var(--jmu-purple);
 }
