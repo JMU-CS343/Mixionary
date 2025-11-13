@@ -2,6 +2,11 @@ const searchInput = document.getElementById('searchInput');
 const searchBtn = document.getElementById('searchButton');
 const resultsDiv = document.getElementById('results');
 const settingsBtn = document.getElementById("settings")
+const loadMoreBtn = document.getElementById('loadMoreButton');
+
+const DEFAULT_CARD_AMOUNT = '10';
+let allDrinks = [];
+let displayedCount = 0;
 
 // Listen for changes on theme select using event delegation
 document.addEventListener('change', function(e) {
@@ -15,17 +20,30 @@ document.addEventListener('change', function(e) {
         localStorage.setItem('cardView', newView);
         applyCardView(newView);
     }
+    if (e.target.id === 'cardAmountSelect') {
+        const newAmount = e.target.value;
+        localStorage.setItem('cardAmount', newAmount);
+        if (allDrinks.length) {
+            resetDisplayedResults();
+            resultsDiv.innerHTML = '';
+            renderNextBatch();
+        } else {
+            updateLoadMoreVisibility();
+        }
+    }
 });
 
 // Load settings from localStorage on page load
 function loadSettings() {
     const themeSelect = document.getElementById('themeSelect');
     const cardViewSelect = document.getElementById('cardViewSelect');
+    const cardAmountSelect = document.getElementById('cardAmountSelect');
     
   // loadSettings reads saved values and applies them
     
     const savedTheme = localStorage.getItem('theme') || 'dark';
     const savedCardView = localStorage.getItem('cardView') || 'grid';
+    const savedCardAmount = localStorage.getItem('cardAmount') || DEFAULT_CARD_AMOUNT;
     
   // apply saved settings (or defaults)
     
@@ -34,6 +52,9 @@ function loadSettings() {
     }
     if (cardViewSelect) {
         cardViewSelect.value = savedCardView;
+    }
+    if (cardAmountSelect) {
+        cardAmountSelect.value = savedCardAmount;
     }
     
     applyTheme(savedTheme);
@@ -61,11 +82,22 @@ if (restoreDefaultsBtn) {
     localStorage.setItem('cardView', 'grid');
     applyCardView('grid');
 
+    localStorage.setItem('cardAmount', DEFAULT_CARD_AMOUNT);
+    resetDisplayedResults();
+    if (allDrinks.length) {
+      resultsDiv.innerHTML = '';
+      renderNextBatch();
+    } else {
+      updateLoadMoreVisibility();
+    }
+
     // Update selects in the modal if present
     const themeSelect = document.getElementById('themeSelect');
     if (themeSelect) themeSelect.value = 'dark';
     const cardViewSelect = document.getElementById('cardViewSelect');
     if (cardViewSelect) cardViewSelect.value = 'grid';
+    const cardAmountSelect = document.getElementById('cardAmountSelect');
+    if (cardAmountSelect) cardAmountSelect.value = DEFAULT_CARD_AMOUNT;
 
     // Close the modal
     const modalEl = document.getElementById('settingModal');
@@ -93,6 +125,11 @@ function handleSearch() {
     const query = searchInput.value.trim();
     if (query !== '') {
         fetchCocktails(query);
+    } else {
+        allDrinks = [];
+        resetDisplayedResults();
+        resultsDiv.innerHTML = '';
+        updateLoadMoreVisibility();
     }
 }
 
@@ -121,17 +158,51 @@ async function fetchCocktails(query) {
     displayCocktails(data.drinks);
   } catch (error) {
     console.error('Error fetching data:', error);
+    allDrinks = [];
+    resetDisplayedResults();
+    updateLoadMoreVisibility();
   }
 }
 
 function displayCocktails(drinks) {
+  allDrinks = Array.isArray(drinks) ? drinks : [];
+  resetDisplayedResults();
   resultsDiv.innerHTML = '';
-  if (!drinks) {
+  if (!allDrinks.length) {
     resultsDiv.innerHTML = '<p>No drinks found</p>';
+    updateLoadMoreVisibility();
     return;
   }
 
-  drinks.forEach(drink => {
+  renderNextBatch();
+}
+
+function renderNextBatch() {
+  if (!allDrinks.length) {
+    updateLoadMoreVisibility();
+    return;
+  }
+
+  const cardAmountSetting = getCardAmountSetting();
+  const batchSize = cardAmountSetting === 'ALL'
+    ? allDrinks.length
+    : Math.max(parseInt(cardAmountSetting, 10) || 0, 0);
+
+  if (batchSize === 0) {
+    updateLoadMoreVisibility();
+    return;
+  }
+
+  const nextDrinks = allDrinks.slice(displayedCount, displayedCount + batchSize);
+  nextDrinks.forEach(drink => {
+    const card = createDrinkCard(drink);
+    resultsDiv.appendChild(card);
+  });
+  displayedCount += nextDrinks.length;
+  updateLoadMoreVisibility();
+}
+
+function createDrinkCard(drink) {
   const card = document.createElement('button');
   card.className = 'card';
 
@@ -197,10 +268,32 @@ function displayCocktails(drinks) {
     local = JSON.parse(localStorage.getItem("saved")) || [];
   });
   
-  resultsDiv.appendChild(card);
-  });
+  return card;
+}
 
-  
+function updateLoadMoreVisibility() {
+  if (!loadMoreBtn) {
+    return;
+  }
+
+  const cardAmountSetting = getCardAmountSetting();
+  const shouldHide = !allDrinks.length
+    || cardAmountSetting === 'ALL'
+    || displayedCount >= allDrinks.length;
+
+  loadMoreBtn.style.display = shouldHide ? 'none' : 'block';
+}
+
+function resetDisplayedResults() {
+  displayedCount = 0;
+}
+
+function getCardAmountSetting() {
+  return localStorage.getItem('cardAmount') || DEFAULT_CARD_AMOUNT;
+}
+
+if (loadMoreBtn) {
+  loadMoreBtn.addEventListener('click', renderNextBatch);
 }
 
 
