@@ -63,8 +63,6 @@ body{
     border: 2px outset buttonborder;
     /* border: solid var(--light-gray) 1px; */
     height: 75%;
-    display: flex;
-    flex-direction: column;
     overflow-y: scroll;
     background-color: var(--bg-secondary);
     transition: background-color 300ms ease;
@@ -72,8 +70,21 @@ body{
     box-sizing: border-box;
 }
 
+/* List view: single column layout */
+#results[data-card-view="list"] {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Grid view: 3-column layout */
+#results[data-card-view="grid"] {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    padding: 0;
+}
+
 .card {
-    width: calc(100% - 2px);
     background-color: var(--bg-primary);
     color: var(--text-primary);
     display: flex;
@@ -81,6 +92,20 @@ body{
     align-items: flex-start;
     position: relative;
     transition: background-color 300ms ease, color 300ms ease;
+    box-sizing: border-box;
+}
+
+/* List view: full width cards */
+#results[data-card-view="list"] .card {
+    width: calc(100% - 2px);
+    border: 1px solid var(--bg-secondary);
+}
+
+/* Grid view: cards fit in 3-column grid */
+#results[data-card-view="grid"] .card {
+    width: 100%;
+    min-height: 120px;
+    border: 2px solid var(--text-secondary);
 }
 
 /* Bookmark image inside cards */
@@ -164,6 +189,10 @@ header > button {
     grid-row: 2;
   }
 
+  /* On mobile, grid view becomes single column for better readability */
+  #results[data-card-view="grid"] {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* for custom sidebar */
