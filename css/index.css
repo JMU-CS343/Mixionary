@@ -80,6 +80,8 @@ body{
 #results[data-card-view="grid"] {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: auto;
+    align-items: stretch;
     gap: 0;
     padding: 0;
 }
@@ -106,6 +108,23 @@ body{
     width: 100%;
     min-height: 120px;
     border: 2px solid var(--text-secondary);
+    align-self: stretch;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    padding: 10px;
+    padding-bottom: 15px;
+}
+
+/* Ensure text content wraps in grid cards */
+#results[data-card-view="grid"] .card h3,
+#results[data-card-view="grid"] .card p {
+    width: calc(100% - 50px);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    max-width: calc(100% - 50px);
+    box-sizing: border-box;
+    margin: 0;
 }
 
 /* Bookmark image inside cards */
