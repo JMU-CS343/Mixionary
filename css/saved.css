@@ -210,6 +210,36 @@ header > button {
   gap: 0.5rem;
 }
 
+@media screen and (max-width: 760px) {
+  .header {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+
+  #title {
+    grid-row: 1;
+    grid-column-start: 1;
+    grid-column-end: 4;
+  }
+
+  #ingredients {
+    grid-row: 2;
+  }
+
+  #saved {
+    grid-row: 2;
+  }
+
+  #search {
+    grid-row: 2;
+  }
+
+  /* On mobile, grid view becomes single column for better readability */
+  #results[data-card-view="grid"] {
+    grid-template-columns: 1fr;
+  }
+}
 
 /* for custom sidebar */
 ::-webkit-scrollbar {
