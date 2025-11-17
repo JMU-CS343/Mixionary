@@ -16,18 +16,19 @@
 
     "int" : {
         "13" : false,
-        "14" : false,
+        "14" : true,
         "15" : false,
         "18" : false,
-        "19" : false,
-        "21" : false,
+        "19" : true,
+        "21" : true,
         "22" : false,
         "23" : true,
         "29" : false
     },
 
     "adv" : {
-
+        "37" : false,
+        "44" : false
     }
 
 }
