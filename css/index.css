@@ -100,14 +100,12 @@ body{
 /* List view: full width cards */
 #results[data-card-view="list"] .card {
     width: calc(100% - 2px);
-    border: 1px solid var(--bg-secondary);
 }
 
 /* Grid view: cards fit in 3-column grid */
 #results[data-card-view="grid"] .card {
     width: 100%;
     min-height: 120px;
-    border: 2px solid var(--text-secondary);
     align-self: stretch;
     word-wrap: break-word;
     overflow-wrap: break-word;
@@ -309,6 +307,36 @@ header > button {
     font-size: 2rem;
 }
 
+#page-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw; 
+    height: 100vh;
+    background-color: rgba(128, 128, 128, 0.7);
+    z-index: 9999; 
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ... (existing #page-overlay styles) ... */
+
+.spinner {
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #3498db;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
 /* Settings styles for theme support */
 .settings {
     display: flex;
@@ -327,7 +355,7 @@ header > button {
 .settings select {
     background-color: var(--bg-secondary);
     color: var(--text-primary);
-    border: 1px solid var(--border-color);
+    border: 2px outset buttonborder;
     padding: 0.5rem;
     border-radius: 4px;
     transition: background-color 300ms ease, color 300ms ease, border-color 300ms ease;

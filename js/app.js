@@ -122,15 +122,20 @@ settingsBtn.addEventListener('click', () => {
 
 // Handle search functionality
 function handleSearch() {
+    document.getElementById('page-overlay').style.display = 'flex';
     const query = searchInput.value.trim();
-    if (query !== '') {
-        fetchCocktails(query);
-    } else {
-        allDrinks = [];
-        resetDisplayedResults();
-        resultsDiv.innerHTML = '';
-        updateLoadMoreVisibility();
-    }
+    setTimeout(() => {
+      if (query !== '') {
+          fetchCocktails(query);
+      } else {
+          allDrinks = [];
+          resetDisplayedResults();
+          resultsDiv.innerHTML = '';
+          updateLoadMoreVisibility();
+      }
+        document.getElementById('page-overlay').style.display = 'none';
+    }, 2000);
+
 }
 
 const BASE_URL = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=`;
