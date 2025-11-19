@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mix-ionary</title>
+    <link rel="icon" type="image/x-icon" href="assets/martini.ico">
+    <link rel="stylesheet" href="../css/help.css">
+</head>
+
+
+<body>
+    <header class="header">
+        <button id="title">Mix-ionary<img src="../assets/martini.png" alt="Mix-ionary logo" style="width:46px"> </button>
+        <button id="help" onclick="window.location.href='help.html'">Help</button>
+        <button id="saved" onclick="window.location.href='saved.html'">Saved</button>
+        <button id="search" onclick="window.location.href='../index.html'">Search</button>
+    </header>
+
+    <main class="container">
+        <section id="searchBar">
+            <input type="text" id="searchInput" placeholder="Search for saved" />
+            <button id="searchButton">
+                <img src="../assets/search.png" alt="Search" style="width: 64px;">
+            </button>
+        </section>
+
+        <section id="results"></section>
+        <button id="loadMoreButton" class="load-more" style="display: none;">Load More Saved</button>
+    </main>
+
+    <button id="settings">
+        <img src="../assets/gear.png" alt="Settings" style="width: 48px;">
+    </button>
+
+    <!-- Bootstrap modal -->
+    <div class="modal fade" id="drinkModal" tabindex="-1" aria-labelledby="drinkModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <p class="modal-title" id="drinkModalLabel"></p>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <img id="drinkImage" src="" alt="" class="img-fluid rounded mb-3" style="max-height: 250px;">
+                    <p id="drinkInstructions"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="settingModal" tabindex="-1" aria-labelledby="settingModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <p class="modal-title" id="settingModalLabel"></p>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <div class="settings">
+                        <label for="themeSelect">Choose Theme:</label>
+                        <select id="themeSelect">
+                            <option value="light">Light</option>
+                            <option value="dark">Dark</option>
+                        </select>
+                        <div class="card-view">
+                            <label for="cardViewSelect">Card View:</label>
+                            <select id="cardViewSelect">
+                                <option value="grid">Grid</option>
+                                <option value="list">List</option>
+                            </select>
+                        </div>
+                        <div class="card-amount">
+                            <label for="cardAmountSelect">Results per Search:</label>
+                            <select id="cardAmountSelect">
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                                <option value="ALL">ALL</option>
+                            </select>
+                        </div>
+                    </div>
+                    <p class="settings-note" style="font-size:0.9rem; color:var(--text-secondary); margin-top:0.75rem;">Note: settings are stored locally in your browser and are specific to this site (they won't transfer between different domains or devices).</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="restoreDefaultsBtn" class="btn btn-secondary">Restore Defaults</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/saved.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
