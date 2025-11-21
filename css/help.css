@@ -57,6 +57,10 @@ header > button {
   padding:5px;
 }
 
+.container > p {
+  padding-left: 10%;
+}
+
 @media screen and (max-width: 760px) {
   .header {
     display: grid;
