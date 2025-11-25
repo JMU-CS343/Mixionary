@@ -110,7 +110,6 @@ if (restoreDefaultsBtn) {
 
 // Load settings when page loads
 window.addEventListener('DOMContentLoaded', () => {
-    console.log('DOM loaded');
     loadSettings();
 });
 
@@ -157,15 +156,23 @@ searchInput.addEventListener('keypress', (event) => {
 });
 
 async function fetchCocktails(query) {
-  try {
-    const res = await fetch(BASE_URL + encodeURIComponent(query));
-    const data = await res.json();
-    displayCocktails(data.drinks);
-  } catch (error) {
-    console.error('Error fetching data:', error);
+    
+  //use catch for no wifi
+  const res = await fetch(BASE_URL + encodeURIComponent(query))
+  .catch(err => {
     allDrinks = [];
     resetDisplayedResults();
+    if (resultsDiv) {
+      resultsDiv.innerHTML = `<p class="error">Wifi error, please reconnect and try again.</p>`;
+    }
     updateLoadMoreVisibility();
+    return null;
+  });
+
+  //catch res if wifi issues
+  if (res) {
+    const data = await res.json();
+    displayCocktails(data.drinks);
   }
 }
 
@@ -296,6 +303,7 @@ function resetDisplayedResults() {
 function getCardAmountSetting() {
   return localStorage.getItem('cardAmount') || DEFAULT_CARD_AMOUNT;
 }
+
 
 if (loadMoreBtn) {
   loadMoreBtn.addEventListener('click', renderNextBatch);
