@@ -10,7 +10,7 @@ body{
 
 .header {
     display: grid;
-    grid-template-columns: 50% 20% 15% 15%;
+    grid-template-columns: 55% 15% 15% 15%;
 }
 
 .header > button {
@@ -43,6 +43,14 @@ body{
   justify-content: space-between;
   background-color: var(--bg-secondary);
   transition: background-color 300ms ease;
+}
+
+#searchInput{
+  background-color: transparent;
+  margin-left: 25px;
+  height: 40px;
+  color: var(--text-primary);
+  transition: color 300ms ease;
 }
 
 #results {
@@ -223,7 +231,7 @@ header > button {
     grid-column-end: 4;
   }
 
-  #ingredients {
+  #help {
     grid-row: 2;
   }
 
