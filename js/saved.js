@@ -231,7 +231,9 @@ function createDrinkCard(drink) {
   card.addEventListener('click', () => {
     const modal = new bootstrap.Modal(document.getElementById('drinkModal'));
     document.getElementById('drinkModalLabel').textContent = drink.strDrink;
-    document.getElementById('drinkImage').src = drink.strDrinkThumb;
+    const imgEl = document.getElementById('drinkImage');
+    imgEl.src = drink.strDrinkThumb;
+    imgEl.alt = `Photo of ${drink.strDrink}`;
     document.getElementById('drinkInstructions').textContent = drink.strInstructions;
     modal.show();
   });
