@@ -38,6 +38,21 @@ document.addEventListener('change', (e) => {
       updateLoadMoreVisibility();
     }
   }
+  if (e.target.id === 'language-dropdown') {
+    const dropdownValue = e.target.value;
+    let langCode = 'en';
+    if (dropdownValue === 'Spanish') langCode = 'es';
+    if (dropdownValue === 'French') langCode = 'fr';
+    setStoredLanguage(langCode);
+    applyLanguageToPage('saved');
+    resetDisplayedResults();
+    if (allDrinks.length) {
+      resultsDiv.innerHTML = '';
+      renderNextBatch();
+    } else {
+      updateLoadMoreVisibility();
+    }
+  }
 });
 
 function loadSettings() {
@@ -55,6 +70,9 @@ function loadSettings() {
 
   applyTheme(savedTheme);
   applyCardView(savedCardView);
+
+  // Apply language-specific UI
+  applyLanguageToPage('saved');
 }
 
 function applyTheme(theme) {
@@ -127,17 +145,20 @@ searchInput.addEventListener('keypress', (event) => {
 async function loadSavedDrinks() {
   local = JSON.parse(localStorage.getItem('saved')) || [];
   if (!local.length) {
-    setCurrentDrinks([], '<p>No saved drinks.</p>');
+    const bundle = getI18nBundle();
+    setCurrentDrinks([], `<p>${bundle.messages.noSavedDrinks}</p>`);
     return;
   }
 
   try {
     const drinkLists = await Promise.all(local.map(fetchCocktailByName));
     const flattened = drinkLists.flat().filter(Boolean);
-    setCurrentDrinks(flattened, '<p>No saved drinks.</p>');
+    const bundle = getI18nBundle();
+    setCurrentDrinks(flattened, `<p>${bundle.messages.noSavedDrinks}</p>`);
   } catch (error) {
     console.error('Error loading saved drinks:', error);
-    setCurrentDrinks([], '<p>Unable to load saved drinks.</p>');
+    const bundle = getI18nBundle();
+    setCurrentDrinks([], `<p>${bundle.messages.unableToLoadSaved}</p>`);
   }
 }
 
@@ -146,14 +167,17 @@ async function fetchCocktails(query) {
     const res = await fetch(BASE_URL + encodeURIComponent(query));
     const data = await res.json();
     if (!data.drinks) {
-      setCurrentDrinks([], '<p>No matching saved drinks.</p>');
+      const bundle = getI18nBundle();
+      setCurrentDrinks([], `<p>${bundle.messages.noMatchingSaved}</p>`);
       return;
     }
     const common = data.drinks.filter((drink) => local.includes(drink.strDrink));
-    setCurrentDrinks(common, '<p>No matching saved drinks.</p>');
+    const bundle = getI18nBundle();
+    setCurrentDrinks(common, `<p>${bundle.messages.noMatchingSaved}</p>`);
   } catch (error) {
     console.error('Error fetching data:', error);
-    setCurrentDrinks([], '<p>Unable to search saved drinks.</p>');
+    const bundle = getI18nBundle();
+    setCurrentDrinks([], `<p>${bundle.messages.unableToSearchSaved}</p>`);
   }
 }
 
@@ -174,7 +198,8 @@ function setCurrentDrinks(drinks, emptyMessage) {
   resultsDiv.innerHTML = '';
 
   if (!allDrinks.length) {
-    resultsDiv.innerHTML = emptyMessage || '<p>No results.</p>';
+    const bundle = getI18nBundle();
+    resultsDiv.innerHTML = emptyMessage || `<p>${bundle.messages.noSavedDrinks}</p>`;
     updateLoadMoreVisibility();
     return;
   }
@@ -234,7 +259,9 @@ function createDrinkCard(drink) {
     const imgEl = document.getElementById('drinkImage');
     imgEl.src = drink.strDrinkThumb;
     imgEl.alt = `Photo of ${drink.strDrink}`;
-    document.getElementById('drinkInstructions').textContent = drink.strInstructions;
+    const instructionField = getInstructionFieldForLanguage();
+    const instructions = drink[instructionField] || drink.strInstructions;
+    document.getElementById('drinkInstructions').textContent = instructions;
     modal.show();
   });
 

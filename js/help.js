@@ -1,10 +1,13 @@
-// Load theme on startup
+// Load theme and language on startup
 window.addEventListener('DOMContentLoaded', () => {
   const savedTheme = localStorage.getItem('theme') || 'dark';
   applyTheme(savedTheme);
 
   const themeSelect = document.getElementById('themeSelect');
   if (themeSelect) themeSelect.value = savedTheme;
+
+  // Apply language-specific UI to help page
+  applyLanguageToPage('main');
 });
 
 // Theme change handler
@@ -13,6 +16,14 @@ document.addEventListener('change', (e) => {
     const newTheme = e.target.value;
     localStorage.setItem('theme', newTheme);
     applyTheme(newTheme);
+  }
+  if (e.target.id === 'language-dropdown') {
+    const dropdownValue = e.target.value;
+    let langCode = 'en';
+    if (dropdownValue === 'Spanish') langCode = 'es';
+    if (dropdownValue === 'French') langCode = 'fr';
+    setStoredLanguage(langCode);
+    applyLanguageToPage('main');
   }
 });
 

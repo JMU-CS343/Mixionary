@@ -31,6 +31,23 @@ document.addEventListener('change', function(e) {
             updateLoadMoreVisibility();
         }
     }
+    if (e.target.id === 'language-dropdown') {
+        const dropdownValue = e.target.value;
+        // Map visible value to language code
+        let langCode = 'en';
+        if (dropdownValue === 'Spanish') langCode = 'es';
+        if (dropdownValue === 'French') langCode = 'fr';
+        setStoredLanguage(langCode);
+        applyLanguageToPage('main');
+        // Re-render results so any text messages use the new language
+        if (allDrinks.length) {
+            resetDisplayedResults();
+            resultsDiv.innerHTML = '';
+            renderNextBatch();
+        } else {
+            updateLoadMoreVisibility();
+        }
+    }
 });
 
 // Load settings from localStorage on page load
@@ -59,6 +76,9 @@ function loadSettings() {
     
     applyTheme(savedTheme);
     applyCardView(savedCardView);
+
+    // Apply language-specific UI
+    applyLanguageToPage('main');
 }
 
 // Apply theme changes
@@ -163,7 +183,8 @@ async function fetchCocktails(query) {
     allDrinks = [];
     resetDisplayedResults();
     if (resultsDiv) {
-      resultsDiv.innerHTML = `<p class="error">Wifi error, please reconnect and try again.</p>`;
+      const bundle = getI18nBundle();
+      resultsDiv.innerHTML = `<p class="error">${bundle.messages.wifiError}</p>`;
     }
     updateLoadMoreVisibility();
     return null;
@@ -181,7 +202,8 @@ function displayCocktails(drinks) {
   resetDisplayedResults();
   resultsDiv.innerHTML = '';
   if (!allDrinks.length) {
-    resultsDiv.innerHTML = '<p>No drinks found</p>';
+    const bundle = getI18nBundle();
+    resultsDiv.innerHTML = `<p>${bundle.messages.noDrinksFound}</p>`;
     updateLoadMoreVisibility();
     return;
   }
@@ -256,7 +278,9 @@ function createDrinkCard(drink) {
       const imgEl = document.getElementById('drinkImage');
       imgEl.src = drink.strDrinkThumb;
       imgEl.alt = `Photo of ${drink.strDrink}`;
-      document.getElementById('drinkInstructions').textContent = drink.strInstructions;
+      const instructionField = getInstructionFieldForLanguage();
+      const instructions = drink[instructionField] || drink.strInstructions;
+      document.getElementById('drinkInstructions').textContent = instructions;
       modal.show();
     });
 
