@@ -278,6 +278,11 @@ function createDrinkCard(drink) {
       const imgEl = document.getElementById('drinkImage');
       imgEl.src = drink.strDrinkThumb;
       imgEl.alt = `Photo of ${drink.strDrink}`;
+      const linkEl = document.getElementById('link');
+      if (linkEl) {
+        linkEl.href = BASE_URL + encodeURIComponent(drink.strDrink);
+        linkEl.download = `${drink.strDrink}.json`;
+      }
       const instructionField = getInstructionFieldForLanguage();
       const instructions = drink[instructionField] || drink.strInstructions;
       document.getElementById('drinkInstructions').textContent = instructions;
