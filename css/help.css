@@ -57,8 +57,14 @@ header > button {
   padding:5px;
 }
 
-.container > p {
+.indent {
   padding-left: 10%;
+  padding-right: 10%;
+}
+
+.indent_dub {
+  padding-left: 12%;
+  padding-right: 12%;
 }
 
 @media screen and (max-width: 760px) {
