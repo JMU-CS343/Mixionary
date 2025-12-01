@@ -22,11 +22,11 @@
         "20" : true,
         "21" : true,
         "23" : true,
-        "24" : false
+        "24" : true
     },
 
     "adv" : {
-        "42" : true,
+        "42" : false,
         "44" : false
     }
 
