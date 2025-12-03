@@ -22,12 +22,14 @@
         "20" : true,
         "21" : true,
         "23" : true,
-        "24" : true
+        "24" : true,
+        "27" : true
     },
 
     "adv" : {
-        "42" : false,
-        "44" : false
+        "35" : true,
+        "42" : true,
+        "44" : true
     }
 
 }
